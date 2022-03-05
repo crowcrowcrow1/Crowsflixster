@@ -1,13 +1,10 @@
 package com.example.crowsflixster
 
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
-import android.text.style.ClickableSpan
 import android.util.Log
+import android.view.Window
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,27 +12,22 @@ import com.codepath.asynchttpclient.AsyncHttpClient
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
 import org.json.JSONException
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
-
-
 
 private const val TAG="MainActivity"
 private const val NOW_PLAYING_URL="https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
-class MainActivity : AppCompatActivity() {
+class MainActivity3 : AppCompatActivity() {
     private val movies= mutableListOf<Movie>()
     private lateinit var rvMovies: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
-
-
 
 
         var secondview= findViewById<Button>(R.id.secondfewbutton)
         secondview.setOnClickListener {
-           val switchviewtosecond= Intent(this,MainActivity2::class.java)
+            val switchviewtosecond= Intent(this,MainActivity2::class.java)
             startActivity(switchviewtosecond)
         }
 
@@ -46,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        rvMovies.layoutManager=LinearLayoutManager(this)
-        val client=AsyncHttpClient()
+        rvMovies.layoutManager= LinearLayoutManager(this)
+        val client= AsyncHttpClient()
         client.get(NOW_PLAYING_URL, object: JsonHttpResponseHandler(){
             override fun onFailure(
                 statusCode: Int,
@@ -66,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                     movieAdapter.notifyDataSetChanged()
                     Log.i(TAG,"Movie list $movies")
                 }
-                catch(e:JSONException){
+                catch(e: JSONException){
                     Log.e(TAG,"Enctounered exception")
                 }
             }
